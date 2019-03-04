@@ -1,5 +1,7 @@
 import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
+import ArticleList from "./components/ArticleList";
+import { articles } from "./fixtures";
 
-ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
+ReactDOM.render(<ArticleList articles={articles} />, document.getElementById("root"));
