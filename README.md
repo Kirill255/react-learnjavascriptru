@@ -92,3 +92,24 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`
+
+## ESLint
+
+1. `npm i -D eslint babel-eslint eslint-plugin-react`
+
+2. `touch .eslintrc`
+
+```json
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "globals": {
+    "window": true,
+    "document": true,
+    "console": true
+  },
+  "rules": {
+    "no-console": "off"
+  }
+}
+```
