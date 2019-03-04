@@ -1,7 +1,6 @@
 const path = require("path");
 
-module.exports = {
-  devtool: "source-map",
+const conf = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "build"),
@@ -18,4 +17,10 @@ module.exports = {
       }
     ]
   }
+};
+
+module.exports = (env, options) => {
+  conf.devtool = options.mode === "production" ? false : "cheap-module-eval-source-map";
+
+  return conf;
 };
