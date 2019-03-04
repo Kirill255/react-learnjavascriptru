@@ -39,14 +39,15 @@ module.exports = {
 }
 ```
 
-4. `npm install --save-dev babel-loader @babel/core @babel/cli @babel/preset-env @babel/preset-react`, and `npm install --save @babel/polyfill`
+4. `npm install --save-dev babel-loader @babel/core @babel/cli @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties`, and `npm install --save @babel/polyfill`
 
 5. `touch babel.config.js`
 
 ```js
 const presets = ["@babel/preset-env", "@babel/preset-react"];
+const plugins = ["@babel/plugin-proposal-class-properties"];
 
-module.exports = { presets };
+module.exports = { presets, plugins };
 ```
 
 6. Create entry point `mkdir src` and `touch src/index.js`
