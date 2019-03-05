@@ -12,6 +12,16 @@ class Article extends Component {
     }).isRequired
   };
 
+  constructor(props) {
+    super(props);
+
+    this.containerRef = React.createRef();
+  }
+
+  componentDidMount() {
+    console.log(this.containerRef.current);
+  }
+
   getBody() {
     const { article, isOpen } = this.props;
     if (!isOpen) return null;
@@ -22,13 +32,6 @@ class Article extends Component {
       </section>
     );
   }
-
-  // вынесли в отдельную функцию, потому что в прошлом варианте при каждом вызове метода render() создавалась новая функция, и эта анонимная функция вызывалась дважды, один раз с null, чтобы очистить ссылку за собой на предыдущую функцию, и потом второй раз с новой функцией
-  containerRef = (node) => {
-    // например можем сохранить ссылку на нашу node
-    // this.container = node;
-    console.log(node);
-  };
 
   render() {
     const { article, isOpen, toggleOpen } = this.props;
