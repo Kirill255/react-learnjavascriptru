@@ -8,7 +8,8 @@ export default (OriginalComponent) =>
 
     toggleOpenArticle = (id) => (event) => {
       event && event.preventDefault && event.preventDefault();
-      this.setState({ openArticleId: id });
+      // раньше было, что при клике статья открывалась и всё, а теперь при клике статья открывается и при повторном клике статья закрывается
+      this.setState({ openArticleId: id === this.state.openArticleId ? null : id });
     };
 
     render() {
