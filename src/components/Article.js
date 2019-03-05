@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
 import CommentList from "./CommentList";
 
-class Article extends Component {
+class Article extends PureComponent {
   static propTypes = {
     article: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -17,10 +17,11 @@ class Article extends Component {
     updateIndex: 0
   };
 
-  // если возвращает true - то перерендер, если false - то нет перерендера
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.isOpen !== this.props.isOpen;
-  }
+  // теперь нам не нужен shouldComponentUpdate, PureComponent под капотом делает тоже самое, и главное! для всех пропсов, и нам не нужно проверять все пропсы вручную по отдельности
+  // заметка! прямо сейчас у нас render снова вызывается 7 раз (на каждую статью), потому что у нас функция toggleOpenArticle меняется, создаётся новая
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return nextProps.isOpen !== this.props.isOpen;
+  // }
 
   getBody() {
     const { article, isOpen } = this.props;
