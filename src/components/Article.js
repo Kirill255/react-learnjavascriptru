@@ -17,7 +17,11 @@ class Article extends Component {
     updateIndex: 0
   };
 
-  // обычно реакт старается переиспользовать компоненты, если это возможно, но мы можем задать обратное поведение с помощью атрибута key, тоесть если key изменился значит это уже другой компонент, значит его нужно создать заново https://stackoverflow.com/a/35004739
+  // если возвращает true - то перерендер, если false - то нет перерендера
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isOpen !== this.props.isOpen;
+  }
+
   getBody() {
     const { article, isOpen } = this.props;
     if (!isOpen) return null;
@@ -33,6 +37,7 @@ class Article extends Component {
   }
 
   render() {
+    console.log("render");
     const { article, isOpen, toggleOpen } = this.props;
     return (
       <div>
