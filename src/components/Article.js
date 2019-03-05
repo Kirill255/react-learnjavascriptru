@@ -23,10 +23,17 @@ class Article extends Component {
     );
   }
 
+  // вынесли в отдельную функцию, потому что в прошлом варианте при каждом вызове метода render() создавалась новая функция, и эта анонимная функция вызывалась дважды, один раз с null, чтобы очистить ссылку за собой на предыдущую функцию, и потом второй раз с новой функцией
+  containerRef = (node) => {
+    // например можем сохранить ссылку на нашу node
+    // this.container = node;
+    console.log(node);
+  };
+
   render() {
     const { article, isOpen, toggleOpen } = this.props;
     return (
-      <div ref={(node) => console.log(node)}>
+      <div ref={this.containerRef}>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
         {this.getBody()}
