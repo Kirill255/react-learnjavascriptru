@@ -77,6 +77,23 @@ import "@babel/polyfill";
 
 8. Если не запускается [webpack-dev-server](https://ru.stackoverflow.com/a/847972)
 
+9. Если нужна поддержка стилей, `npm install --save-dev css-loader style-loader`, а в `webpack.config.js` добавить:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+        // или
+        // loaders: ["style-loader", "css-loader"]
+      }
+    ]
+  }
+};
+```
+
 ## React
 
 1. `npm i -S react react-dom`

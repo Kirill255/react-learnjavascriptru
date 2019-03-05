@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader";
 import Select from "react-select";
 import ArticleList from "../components/ArticleList";
 import UserForm from "../components/UserForm";
+import "./App.css";
 
 class App extends Component {
   static propTypes = {
@@ -29,7 +30,7 @@ class App extends Component {
     }));
 
     return (
-      <div>
+      <div className="app">
         <UserForm />
         <Select value={selectedOption} onChange={this.handleChange} options={options} />
         <ArticleList articles={articles} />
