@@ -33,7 +33,7 @@ class App extends Component {
       <div className="app">
         <UserForm />
         <Select value={selectedOption} onChange={this.handleChange} options={options} />
-        <ArticleList articles={articles} />
+        <ArticleList articles={articles} defaultOpenId={articles[0].id} />
       </div>
     );
   }

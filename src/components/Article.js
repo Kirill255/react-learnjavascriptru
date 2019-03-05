@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import CommentList from "./CommentList";
+import "./Article.css";
 
 class Article extends PureComponent {
   static propTypes = {
@@ -27,13 +29,15 @@ class Article extends PureComponent {
     const { article, isOpen } = this.props;
     if (!isOpen) return null;
     return (
-      <section>
-        {article.text}
-        <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>
-          update
-        </button>
-        <CommentList comments={article.comments} key={this.state.updateIndex} />
-      </section>
+      <CSSTransition classNames="article" timeout={{ enter: 500, exit: 300 }} appear>
+        <section>
+          {article.text}
+          <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>
+            update
+          </button>
+          <CommentList comments={article.comments} key={this.state.updateIndex} />
+        </section>
+      </CSSTransition>
     );
   }
 
@@ -44,7 +48,7 @@ class Article extends PureComponent {
       <div>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
-        {this.getBody()}
+        <TransitionGroup>{this.getBody()}</TransitionGroup>
       </div>
     );
   }

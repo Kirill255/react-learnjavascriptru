@@ -107,6 +107,16 @@ import ReactDOM from "react-dom";
 ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 ```
 
+## react-transition-group
+
+[guide](https://reactjs.org/docs/animation.html)
+
+Можно использовать и v1(старую), но API различается существенно.
+
+[v1](https://github.com/reactjs/react-transition-group/tree/v1-stable)
+
+[v2](https://github.com/reactjs/react-transition-group)
+
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`
