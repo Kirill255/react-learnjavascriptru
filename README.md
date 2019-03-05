@@ -94,7 +94,7 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`
 
-2. [react-hot-loader](https://toster.ru/q/437361)
+2. [react-hot-loader](https://toster.ru/q/437361), [Migrating from v3: React Hot Loader v4](https://github.com/gaearon/react-hot-loader#migrating-from-v3)
 
 ## ESLint
 

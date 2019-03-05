@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { hot } from "react-hot-loader";
 import ArticleList from "../components/ArticleList";
 
 class App extends Component {
@@ -17,4 +18,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
