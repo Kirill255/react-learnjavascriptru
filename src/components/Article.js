@@ -13,13 +13,21 @@ class Article extends Component {
     toggleOpen: PropTypes.func
   };
 
+  state = {
+    updateIndex: 0
+  };
+
+  // обычно реакт старается переиспользовать компоненты, если это возможно, но мы можем задать обратное поведение с помощью атрибута key, тоесть если key изменился значит это уже другой компонент, значит его нужно создать заново https://stackoverflow.com/a/35004739
   getBody() {
     const { article, isOpen } = this.props;
     if (!isOpen) return null;
     return (
       <section>
         {article.text}
-        <CommentList comments={article.comments} />
+        <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>
+          update
+        </button>
+        <CommentList comments={article.comments} key={this.state.updateIndex} />
       </section>
     );
   }
