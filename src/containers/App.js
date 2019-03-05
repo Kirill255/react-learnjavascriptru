@@ -5,7 +5,7 @@ import ArticleList from "../components/ArticleList";
 
 class App extends Component {
   static propTypes = {
-    prop: PropTypes.array
+    articles: PropTypes.array
   };
 
   render() {
