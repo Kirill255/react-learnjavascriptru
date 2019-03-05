@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import CommentList from "./CommentList";
 import toggleOpen from "../decorators/toggleOpen";
@@ -16,11 +17,23 @@ class Article extends Component {
     super(props);
 
     this.containerRef = React.createRef();
+    this.commentsRef = React.createRef();
   }
 
   componentDidMount() {
     console.log(this.containerRef.current);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.commentsRef.current); // компонент
+    console.log(findDOMNode(this.commentsRef.current)); // его реальная DOM-нода
+  }
+
+  // с коллбэком
+  // commentsRef = (node) => {
+  //   console.log(node);
+  //   console.log(findDOMNode(node));
+  // };
 
   getBody() {
     const { article, isOpen } = this.props;
@@ -28,7 +41,7 @@ class Article extends Component {
     return (
       <section>
         {article.text}
-        <CommentList comments={article.comments} />
+        <CommentList ref={this.commentsRef} comments={article.comments} />
       </section>
     );
   }
