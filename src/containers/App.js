@@ -5,6 +5,7 @@ import { hot } from "react-hot-loader";
 import ArticleList from "../components/ArticleList";
 import UserForm from "../components/UserForm";
 import Filters from "../components/Filters";
+import Counter from "../components/Counter";
 import "./App.css";
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
 
     return (
       <div className="app">
+        <Counter />
         <UserForm />
         <Filters articles={articles} />
         <ArticleList articles={articles} defaultOpenId={articles[0].id} />
