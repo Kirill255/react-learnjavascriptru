@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Article from "./Article";
+import Article from "./Article/Article";
 import accordion from "../decorators/accordion";
 
 class ArticleList extends Component {
