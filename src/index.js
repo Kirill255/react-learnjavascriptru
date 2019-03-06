@@ -4,13 +4,11 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import App from "./containers/App";
-import { articles } from "./fixtures";
-
 import store from "./store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App articles={articles} />
+    <App />
   </Provider>,
   document.getElementById("root")
 );

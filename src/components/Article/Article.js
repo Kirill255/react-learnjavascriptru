@@ -2,7 +2,15 @@ import React, { Component, PureComponent } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import CommentList from "../CommentList";
+import { connect } from "react-redux";
+import { deleteArticle } from "../../action";
 import "./Article.css";
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleDelete: (id) => dispatch(deleteArticle(id))
+  };
+};
 
 class Article extends PureComponent {
   static propTypes = {
@@ -43,15 +51,19 @@ class Article extends PureComponent {
 
   render() {
     console.log("render");
-    const { article, isOpen, toggleOpen } = this.props;
+    const { article, isOpen, toggleOpen, handleDelete } = this.props;
     return (
       <div>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
+        <button onClick={() => handleDelete(article.id)}>delete</button>
         <TransitionGroup>{this.getBody()}</TransitionGroup>
       </div>
     );
   }
 }
 
-export default Article;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Article);
