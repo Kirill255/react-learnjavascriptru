@@ -4,8 +4,7 @@ import { hot } from "react-hot-loader";
 
 import ArticleList from "../components/ArticleList";
 import UserForm from "../components/UserForm";
-import DataRange from "../components/Filters/DateRange/DateRange";
-import SelectFilter from "../components/Filters/SelectFilter";
+import Filters from "../components/Filters";
 import "./App.css";
 
 class App extends Component {
@@ -19,8 +18,7 @@ class App extends Component {
     return (
       <div className="app">
         <UserForm />
-        <SelectFilter articles={articles} />
-        <DataRange />
+        <Filters articles={articles} />
         <ArticleList articles={articles} defaultOpenId={articles[0].id} />
       </div>
     );
