@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import DateRange from "./DateRange/DateRange";
 import SelectFilter from "./SelectFilter";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    articles: state.articles
+  };
+};
 
 class Filters extends Component {
   static propTypes = {
+    // from connect
     articles: PropTypes.array.isRequired
   };
 
@@ -19,4 +27,4 @@ class Filters extends Component {
   }
 }
 
-export default Filters;
+export default connect(mapStateToProps)(Filters);

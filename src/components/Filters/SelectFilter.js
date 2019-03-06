@@ -1,24 +1,31 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { changeSelection } from "../../action";
 
-export default class SelectFilter extends Component {
+const mapStateToProps = (state) => {
+  return {
+    selectedOption: state.filters.selectedOption
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChangeSelect: (selectedOption) => dispatch(changeSelection(selectedOption))
+  };
+};
+
+class SelectFilter extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired
-  };
-
-  state = {
-    selectedOption: []
-  };
-
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log("Option selected: ", selectedOption);
+    articles: PropTypes.array.isRequired,
+    // from connect
+    selectedOption: PropTypes.array,
+    handleChangeSelect: PropTypes.func
   };
 
   render() {
-    const { articles } = this.props;
-    const { selectedOption } = this.state;
+    const { articles, selectedOption, handleChangeSelect } = this.props;
 
     const options = articles.map((article) => ({
       label: article.title,
@@ -29,7 +36,7 @@ export default class SelectFilter extends Component {
       <div>
         <Select
           value={selectedOption}
-          onChange={this.handleChange}
+          onChange={handleChangeSelect}
           options={options}
           isMulti={true}
         />
@@ -37,3 +44,8 @@ export default class SelectFilter extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectFilter);
