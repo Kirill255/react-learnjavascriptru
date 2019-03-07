@@ -6,16 +6,6 @@ export default (OriginalComponent) =>
       isOpen: false
     };
 
-    componentDidMount() {
-      console.log("mount");
-    }
-    componentDidUpdate() {
-      console.log("update");
-    }
-    componentWillUnmount() {
-      console.log("unmount");
-    }
-
     toggleOpen = (event) => {
       event && event.preventDefault && event.preventDefault();
       this.setState({
