@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleChangeSelect: (selectedOption) => dispatch(changeSelection(selectedOption))
+    handleChangeSelect: (selectedOption) =>
+      dispatch(changeSelection(selectedOption.map((option) => option.value)))
   };
 };
 
@@ -26,7 +27,6 @@ class SelectFilter extends Component {
 
   render() {
     const { articles, selectedOption, handleChangeSelect } = this.props;
-
     const options = articles.map((article) => ({
       label: article.title,
       value: article.id
@@ -35,7 +35,7 @@ class SelectFilter extends Component {
     return (
       <div>
         <Select
-          value={selectedOption}
+          setValue={selectedOption}
           onChange={handleChangeSelect}
           options={options}
           isMulti={true}

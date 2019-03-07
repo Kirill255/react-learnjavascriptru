@@ -5,8 +5,22 @@ import accordion from "../decorators/accordion";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
+  const { articles, filters } = state;
+  const {
+    selectedOption,
+    dateRange: { from, to }
+  } = filters;
+
+  const filteredArticles = articles.filter((article) => {
+    const published = Date.parse(article.date);
+    return (
+      (!selectedOption.length || selectedOption.includes(article.id)) &&
+      (!from || !to || (published > from && published < to))
+    );
+  });
+
   return {
-    articles: state.articles
+    articles: filteredArticles
   };
 };
 

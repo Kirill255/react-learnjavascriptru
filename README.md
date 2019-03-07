@@ -123,6 +123,8 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 
 2. [react-hot-loader](https://toster.ru/q/437361), [Migrating from v3: React Hot Loader v4](https://github.com/gaearon/react-hot-loader#migrating-from-v3)
 
+3. react-select, когда добаили фильтрацию статей, мы стали хранить в selectedOption вместо `[{value: 'something', label: 'something'}]` вот это `['something']`, мы стали хранить только id статей для более удобной фильтрации в ArticleList, но получили [Warning: Each child in an array or iterator should have a unique "key" prop](https://github.com/JedWatson/react-select/issues/2743#issuecomment-419532881). Я так и не нашёл решения вообще нигде в issues, но потом попробовал вместо value `<Select value={selectedOption} />`, установить setValue `<Select setValue={selectedOption} />` или `<Select selectOption={selectedOption} />` и это сработало.
+
 ## ESLint
 
 1. `npm i -D eslint babel-eslint eslint-plugin-react`
