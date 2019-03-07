@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { commentSelector } from "../selectors";
+import { commentSelectorFactory } from "../selectors";
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    comment: commentSelector(state, ownProps)
+// сделаем функцию которая вернёт mapStateToProps
+const mapStateToProps = () => {
+  // в замыкании создадим селектор, он у нас будет новым для каждого инстанса
+  const commentSelector = commentSelectorFactory();
+
+  return (state, ownProps) => {
+    return {
+      comment: commentSelector(state, ownProps)
+    };
   };
 };
 
