@@ -3,16 +3,11 @@ import PropTypes from "prop-types";
 import DateRange from "./DateRange/DateRange";
 import SelectFilter from "./SelectFilter";
 import { connect } from "react-redux";
+import { mapToArr } from "../../helpers";
 
 const mapStateToProps = (state) => {
-  const tmpArticles = state.articles;
-  const articlesArr = [];
-  for (const key in tmpArticles) {
-    articlesArr.push(tmpArticles[key]);
-  }
-
   return {
-    articles: articlesArr
+    articles: mapToArr(state.articles)
   };
 };
 
