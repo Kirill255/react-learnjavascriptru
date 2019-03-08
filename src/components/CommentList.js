@@ -5,32 +5,32 @@ import CommentForm from "./CommentForm/CommentForm";
 import toggleOpen from "../decorators/toggleOpen";
 
 // component
-const CommentList = ({ comments = [], isOpen, toggleOpen }) => {
+const CommentList = ({ article, isOpen, toggleOpen }) => {
   const text = isOpen ? "hide comments" : "show comments";
 
   return (
     <div>
       <button onClick={toggleOpen}>{text}</button>
-      {getBody({ isOpen, comments })}
+      {getBody({ isOpen, article })}
     </div>
   );
 };
 
 CommentList.propTypes = {
-  comments: PropTypes.array,
+  article: PropTypes.object,
   //from toggleOpen decorator
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func
 };
 
 // handle function
-function getBody({ isOpen, comments }) {
+function getBody({ isOpen, article: { id, comments = [] } }) {
   if (!isOpen) return null;
   if (!comments.length) {
     return (
       <div>
         <p>No comments yet</p>
-        <CommentForm />
+        <CommentForm articleId={id} />
       </div>
     );
   }
@@ -44,7 +44,7 @@ function getBody({ isOpen, comments }) {
           </li>
         ))}
       </ul>
-      <CommentForm />
+      <CommentForm articleId={id} />
     </div>
   );
 }

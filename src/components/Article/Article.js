@@ -43,7 +43,7 @@ class Article extends PureComponent {
           <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>
             update
           </button>
-          <CommentList comments={article.comments} key={this.state.updateIndex} />
+          <CommentList article={article} key={this.state.updateIndex} />
         </section>
       </CSSTransition>
     );

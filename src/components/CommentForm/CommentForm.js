@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addComment } from "../../action";
 import "./CommentForm.css";
 
 const limits = {
@@ -6,16 +8,22 @@ const limits = {
     min: 5,
     max: 15
   },
-  comment: {
+  text: {
     min: 20,
     max: 50
   }
 };
 
-export default class CommentForm extends Component {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    dispatchAddComment: (comment) => dispatch(addComment(comment, ownProps.articleId))
+  };
+};
+
+class CommentForm extends Component {
   state = {
     user: "",
-    comment: ""
+    text: ""
   };
 
   getClassName = (type) =>
@@ -30,13 +38,13 @@ export default class CommentForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (!this.state.user.length || !this.state.comment.length) {
+    if (!this.state.user.length || !this.state.text.length) {
       console.log("Заполните поля");
     } else {
-      console.log(this.state);
+      this.props.dispatchAddComment(this.state);
       this.setState({
         user: "",
-        comment: ""
+        text: ""
       });
     }
   };
@@ -59,9 +67,9 @@ export default class CommentForm extends Component {
           <input
             id="comment"
             type="text"
-            className={this.getClassName("comment")}
-            value={this.state.comment}
-            onChange={this.handleChange("comment")}
+            className={this.getClassName("text")}
+            value={this.state.text}
+            onChange={this.handleChange("text")}
           />
         </div>
         <input type="submit" value="Submit" />
@@ -69,3 +77,8 @@ export default class CommentForm extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CommentForm);
