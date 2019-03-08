@@ -16,7 +16,12 @@ export const filtratedArticlesSelector = createSelector(
     } = filters;
     console.log("---", "recomputing filtration");
 
-    return articles.filter((article) => {
+    const articlesArr = [];
+    for (const key in articles) {
+      articlesArr.push(articles[key]);
+    }
+
+    return articlesArr.filter((article) => {
       const published = Date.parse(article.date);
       return (
         (!selectedOption.length || selectedOption.includes(article.id)) &&

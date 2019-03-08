@@ -5,8 +5,14 @@ import SelectFilter from "./SelectFilter";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
+  const tmpArticles = state.articles;
+  const articlesArr = [];
+  for (const key in tmpArticles) {
+    articlesArr.push(tmpArticles[key]);
+  }
+
   return {
-    articles: state.articles
+    articles: articlesArr
   };
 };
 
