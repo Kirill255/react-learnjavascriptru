@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, NavLink } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 import ArticleList from "../components/ArticleList";
@@ -16,27 +16,30 @@ class App extends Component {
           <div>
             <h2>Main menu</h2>
             <div>
-              <Link to="/">Home</Link>
+              <NavLink exact to="/" activeStyle={{ color: "red", fontWeight: "bold" }}>
+                Home
+              </NavLink>
             </div>
             <div>
-              <Link to="/counter">Counter</Link>
+              <NavLink to="/counter" activeStyle={{ color: "red", fontWeight: "bold" }}>
+                Counter
+              </NavLink>
             </div>
             <div>
-              <Link to="/filters">Filters</Link>
+              <NavLink to="/filters" activeStyle={{ color: "red", fontWeight: "bold" }}>
+                Filters
+              </NavLink>
             </div>
             <div>
-              <Link to="/articles">ArticleList</Link>
+              <NavLink to="/articles" activeStyle={{ color: "red", fontWeight: "bold" }}>
+                ArticleList
+              </NavLink>
             </div>
           </div>
           <UserForm />
           <Route path="/counter" component={Counter} />
           <Route path="/filters" component={Filters} />
           <Route path="/articles" component={ArticleList} />
-          {/*
-          <Counter />
-          <Filters />
-          <ArticleList />
-          */}
         </div>
       </Router>
     );
