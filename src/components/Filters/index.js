@@ -7,7 +7,7 @@ import { mapToArr } from "../../helpers";
 
 const mapStateToProps = (state) => {
   return {
-    articles: mapToArr(state.articles)
+    articles: mapToArr(state.articles.entities)
   };
 };
 
