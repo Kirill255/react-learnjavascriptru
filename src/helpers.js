@@ -1,18 +1,15 @@
-export const arrToMap = (arr) => {
-  return arr.reduce((acc, item) => {
-    acc[item.id] = item;
-    return acc;
-  }, {});
-};
+const { Map } = require("immutable");
+
+// export const arrToMap = (arr) => {
+//   return arr.reduce((acc, item) => {
+//     acc.set(item.id, item);
+//     return acc;
+//   }, new Map({}));
+// };
+
+// в одну строку es6
+export const arrToMap = (arr) => arr.reduce((acc, item) => acc.set(item.id, item), new Map({}));
 
 export const mapToArr = (obj) => {
-  return Object.keys(obj).map((id) => obj[id]);
+  return obj.valueSeq().toArray();
 };
-
-// export const mapToArr = (obj) => {
-//   const arr = [];
-//   for (const key in obj) {
-//     arr.push(obj[key]);
-//   }
-//   return arr;
-// };

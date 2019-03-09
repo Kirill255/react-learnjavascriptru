@@ -1,7 +1,10 @@
+const { Map } = require("immutable");
 import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES } from "../constants";
 import { arrToMap } from "../helpers";
 
-export default (articlesState = {}, action) => {
+const defaultArticledState = new Map({});
+
+export default (articlesState = defaultArticledState, action) => {
   const { type, payload, randomId, response } = action;
 
   switch (type) {
@@ -9,9 +12,7 @@ export default (articlesState = {}, action) => {
       return arrToMap(response);
 
     case DELETE_ARTICLE:
-      const tmpArticlesState = { ...articlesState };
-      delete tmpArticlesState[payload.id];
-      return tmpArticlesState;
+      return articlesState.delete(payload.id);
 
     case ADD_COMMENT:
       const article = articlesState[payload.articleId];
