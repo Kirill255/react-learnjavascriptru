@@ -2,9 +2,9 @@ import React, { Component as ReactComponent } from "react";
 
 export default (OriginalComponent) =>
   class Accordion extends ReactComponent {
-    static defaultProps = {
-      defaultOpenId: "56c782f18990ecf954f6e027"
-    };
+    // static defaultProps = {
+    //   defaultOpenId: "56c782f18990ecf954f6e027"
+    // };
 
     constructor(props) {
       super(props);
