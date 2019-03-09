@@ -1,5 +1,5 @@
 const { Map, Record, OrderedMap } = require("immutable");
-import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES } from "../constants";
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS } from "../constants";
 import { arrToMap } from "../helpers";
 
 const ArticleRecord = Record({
@@ -28,8 +28,14 @@ export default (articlesState = defaultArticlesState, action) => {
   const { type, payload, randomId, response } = action;
 
   switch (type) {
-    case LOAD_ALL_ARTICLES:
-      return articlesState.set("entities", arrToMap(response, ArticleRecord));
+    case LOAD_ALL_ARTICLES + START:
+      return articlesState.set("loading", true);
+
+    case LOAD_ALL_ARTICLES + SUCCESS:
+      return articlesState
+        .set("entities", arrToMap(response, ArticleRecord))
+        .set("loading", false)
+        .set("loaded", true);
 
     case DELETE_ARTICLE:
       return articlesState.deleteIn(["entities", payload.id]);
