@@ -1,14 +1,13 @@
-import { normalizedArticles } from "../fixtures";
-import { DELETE_ARTICLE, ADD_COMMENT } from "../constants";
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES } from "../constants";
 import { arrToMap } from "../helpers";
 
-// сдесь я сделал копию данных с которой мы будем работать, чтобы не удалить статьи из реального массива, он нам ещё нужен, тоесть при перезагрузке страницы у нас снова будет набор всех статей, в реальной ситуации это не нужно конечно же
-const defaultArticles = [...normalizedArticles];
-
-export default (articlesState = arrToMap(defaultArticles), action) => {
-  const { type, payload, randomId } = action;
+export default (articlesState = {}, action) => {
+  const { type, payload, randomId, response } = action;
 
   switch (type) {
+    case LOAD_ALL_ARTICLES:
+      return arrToMap(response);
+
     case DELETE_ARTICLE:
       const tmpArticlesState = { ...articlesState };
       delete tmpArticlesState[payload.id];

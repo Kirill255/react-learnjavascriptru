@@ -4,7 +4,8 @@ import {
   CHANGE_SELECTION,
   CHANGE_DATE_RANGE,
   RESET_DATE_RANGE,
-  ADD_COMMENT
+  ADD_COMMENT,
+  LOAD_ALL_ARTICLES
 } from "../constants";
 
 export const increment = () => {
@@ -45,5 +46,12 @@ export const addComment = (comment, articleId) => {
     type: ADD_COMMENT,
     payload: { comment, articleId },
     generateId: true
+  };
+};
+
+export const loadAllArticles = () => {
+  return {
+    type: LOAD_ALL_ARTICLES,
+    callAPI: "/api/article"
   };
 };
