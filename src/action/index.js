@@ -9,7 +9,8 @@ import {
   LOAD_ARTICLE,
   START,
   SUCCESS,
-  FAIL
+  FAIL,
+  LOAD_ARTICLE_COMMENTS
 } from "../constants";
 
 export const increment = () => {
@@ -90,4 +91,12 @@ export const loadArticle = (id) => (dispatch) => {
         });
       });
   }, 1000);
+};
+
+export const loadArticleComments = (articleId) => {
+  return {
+    type: LOAD_ARTICLE_COMMENTS,
+    payload: { articleId },
+    callAPI: `/api/comment?article=${articleId}`
+  };
 };

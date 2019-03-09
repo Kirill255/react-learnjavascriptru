@@ -5,7 +5,8 @@ import {
   LOAD_ALL_ARTICLES,
   START,
   SUCCESS,
-  LOAD_ARTICLE
+  LOAD_ARTICLE,
+  LOAD_ARTICLE_COMMENTS
 } from "../constants";
 import { arrToMap } from "../helpers";
 
@@ -14,7 +15,9 @@ const ArticleRecord = Record({
   title: "",
   text: undefined,
   comments: [],
-  loading: false
+  loading: false,
+  commentsLoading: false,
+  commentsLoaded: false
 });
 
 // const defaultArticledState = new Map({
@@ -62,6 +65,14 @@ export default (articlesState = defaultArticlesState, action) => {
       return articlesState.updateIn(["entities", payload.articleId, "comments"], (comments) =>
         comments.concat(randomId)
       );
+
+    case LOAD_ARTICLE_COMMENTS + START:
+      return articlesState.setIn(["entities", payload.articleId, "commentsLoading"], true);
+
+    case LOAD_ARTICLE_COMMENTS + SUCCESS:
+      return articlesState
+        .setIn(["entities", payload.articleId, "commentsLoading"], false)
+        .setIn(["entities", payload.articleId, "commentsLoaded"], true);
   }
 
   return articlesState;

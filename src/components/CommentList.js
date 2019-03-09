@@ -1,20 +1,39 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Comment from "./Comment";
+import Loader from "./Loader";
 import CommentForm from "./CommentForm/CommentForm";
 import toggleOpen from "../decorators/toggleOpen";
+import { loadArticleComments } from "../action";
 
-// component
-const CommentList = ({ article, isOpen, toggleOpen }) => {
-  const text = isOpen ? "hide comments" : "show comments";
+class CommentList extends Component {
+  // UNSAFE_componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
+  //   if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
+  //     loadArticleComments(article.id);
+  //   }
+  // }
 
-  return (
-    <div>
-      <button onClick={toggleOpen}>{text}</button>
-      {getBody({ isOpen, article })}
-    </div>
-  );
-};
+  // UNSAFE_componentWillReceiveProps - legacy method
+  componentDidUpdate(prevProps) {
+    const { isOpen, article, loadArticleComments } = this.props;
+    if (!prevProps.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
+      loadArticleComments(article.id);
+    }
+  }
+
+  render() {
+    const { article, isOpen, toggleOpen } = this.props;
+    const text = isOpen ? "hide comments" : "show comments";
+
+    return (
+      <div>
+        <button onClick={toggleOpen}>{text}</button>
+        {getBody({ isOpen, article })}
+      </div>
+    );
+  }
+}
 
 CommentList.propTypes = {
   article: PropTypes.object,
@@ -24,8 +43,11 @@ CommentList.propTypes = {
 };
 
 // handle function
-function getBody({ isOpen, article: { id, comments = [] } }) {
+function getBody({ isOpen, article: { id, comments = [], commentsLoaded, commentsLoading } }) {
   if (!isOpen) return null;
+  if (commentsLoading) return <Loader />;
+  if (!commentsLoaded) return null;
+
   if (!comments.length) {
     return (
       <div>
@@ -49,4 +71,7 @@ function getBody({ isOpen, article: { id, comments = [] } }) {
   );
 }
 
-export default toggleOpen(CommentList);
+export default connect(
+  null,
+  { loadArticleComments }
+)(toggleOpen(CommentList));

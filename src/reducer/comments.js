@@ -1,18 +1,33 @@
-import { normalizedComments } from "../fixtures";
-import { ADD_COMMENT } from "../constants";
+const { Map, Record, OrderedMap } = require("immutable");
+import { ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS } from "../constants";
 import { arrToMap } from "../helpers";
 
-// сдесь я сделал копию данных с которой мы будем работать, чтобы не удалить статьи из реального массива, он нам ещё нужен, тоесть при перезагрузке страницы у нас снова будет набор всех статей, в реальной ситуации это не нужно конечно же
-const defaultComments = [...normalizedComments];
+const CommentRecord = Record({
+  id: null,
+  user: null,
+  text: null
+});
 
-// для производительности не очень хорошо каждый раз проходиться по маасиву комментариев, чтобы найти нужный, поэтому лучше хранить данные в другой структуре, например в объекте или map, в структуре ключ-значение, где мы можем достать любой нужный коммент просто по ключу, а не перебирая всю коллекцию(массив), а он может быть очень большим
+const ReducerState = Record({
+  entities: new OrderedMap({})
+});
 
-export default (commentsState = arrToMap(defaultComments), action) => {
-  const { type, payload, randomId } = action;
+const defaultComments = new ReducerState();
+
+export default (commentsState = defaultComments, action) => {
+  const { type, payload, randomId, response } = action;
 
   switch (type) {
     case ADD_COMMENT:
-      return { ...commentsState, [randomId]: payload.comment };
+      return commentsState.setIn(
+        ["entities", randomId],
+        new CommentRecord({ ...payload.comment, id: randomId })
+      );
+
+    case LOAD_ARTICLE_COMMENTS + SUCCESS:
+      return commentsState.update("entities", (entities) =>
+        entities.merge(arrToMap(response, CommentRecord))
+      );
   }
 
   return commentsState;
