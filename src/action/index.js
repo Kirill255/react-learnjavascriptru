@@ -5,7 +5,11 @@ import {
   CHANGE_DATE_RANGE,
   RESET_DATE_RANGE,
   ADD_COMMENT,
-  LOAD_ALL_ARTICLES
+  LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE,
+  START,
+  SUCCESS,
+  FAIL
 } from "../constants";
 
 export const increment = () => {
@@ -54,4 +58,36 @@ export const loadAllArticles = () => {
     type: LOAD_ALL_ARTICLES,
     callAPI: "/api/article"
   };
+};
+
+// могли бы сделать так, но сделаем для примера через redux-thunk
+// export const loadArticle = (id) => {
+//   return {
+//     type: LOAD_ARTICLE,
+//     callAPI: `/api/article/${id}`
+//   };
+// };
+
+export const loadArticle = (id) => (dispatch) => {
+  dispatch({
+    type: LOAD_ARTICLE + START,
+    payload: { id }
+  });
+
+  setTimeout(() => {
+    fetch(`/api/article/${id}`)
+      .then((res) => res.json())
+      .then((response) => {
+        dispatch({
+          type: LOAD_ARTICLE + SUCCESS,
+          payload: { id, response }
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: LOAD_ARTICLE + FAIL,
+          payload: { id, err }
+        });
+      });
+  }, 1000);
 };

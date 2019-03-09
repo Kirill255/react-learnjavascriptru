@@ -1,12 +1,20 @@
 const { Map, Record, OrderedMap } = require("immutable");
-import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS } from "../constants";
+import {
+  DELETE_ARTICLE,
+  ADD_COMMENT,
+  LOAD_ALL_ARTICLES,
+  START,
+  SUCCESS,
+  LOAD_ARTICLE
+} from "../constants";
 import { arrToMap } from "../helpers";
 
 const ArticleRecord = Record({
   id: undefined,
   title: "",
   text: undefined,
-  comments: []
+  comments: [],
+  loading: false
 });
 
 // const defaultArticledState = new Map({
@@ -36,6 +44,12 @@ export default (articlesState = defaultArticlesState, action) => {
         .set("entities", arrToMap(response, ArticleRecord))
         .set("loading", false)
         .set("loaded", true);
+
+    case LOAD_ARTICLE + START:
+      return articlesState.setIn(["entities", payload.id, "loading"], true);
+
+    case LOAD_ARTICLE + SUCCESS:
+      return articlesState.setIn(["entities", payload.id], new ArticleRecord(payload.response));
 
     case DELETE_ARTICLE:
       return articlesState.deleteIn(["entities", payload.id]);
