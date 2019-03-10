@@ -19,7 +19,10 @@ export default class Articles extends Component {
     return <Article id={id} isOpen key={id} />;
   };
 
-  getIndex = () => {
+  // https://reacttraining.com/react-router/web/api/Route/render-func
+  // render - рендерит когда маршрут совпадает, children - рендерит в любом случае, это позволяет гибко настривать ui, например если "/articles" - мы покажем "Please select article", в другом случае "Article page:", а в другом случае это когда у нас нет точного соответствия "/articles", тоесть на пример "/articles/:id"
+  getIndex = ({ match }) => {
+    if (!match) return <h2>Article page:</h2>;
     return <h2>Please select article</h2>;
   };
 
@@ -27,7 +30,7 @@ export default class Articles extends Component {
     return (
       <div>
         <ArticleList />
-        <Route path="/articles" render={this.getIndex} exact />
+        <Route path="/articles" children={this.getIndex} exact />
         <Route path="/articles/:id" render={this.getArticle} />
       </div>
     );
