@@ -102,6 +102,10 @@ export const loadArticle = (id) => (dispatch) => {
         // dispatch(push("/error"));
         // или так, так даже лучше, т.к. мы перезаписываем роут приведший к ошибке
         dispatch(replace("/error"));
+        // без интеграции "react-router-redux" могло бы выглядеть так, конечно нужно сначала подключить import history from "../history", а "react-router-redux" просто оверхэд и незря он deprecated
+        // history.push("/error")
+        // или
+        // history.replace("/error")
       });
   }, 1000);
 };
