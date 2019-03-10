@@ -135,6 +135,32 @@ devServer: {
 
 - а если это prod, то нужно позаботиться чтобы сервер отдавал на любой запрос index.html страницу, настройки зависят от сервера, смотря куда будете деплоить https://facebook.github.io/create-react-app/docs/deployment
 
+## react-router-redux
+
+For react-router 2.x and 3.x [react-router-redux 4.x](https://www.npmjs.com/package/react-router-redux) `npm i react-router-redux`
+
+For react-router 4.x [react-router-redux 5.x](https://www.npmjs.com/package/react-router-redux/v/5.0.0-alpha.9) `npm i react-router-redux@next`
+
+А вообще эта библиотека устарела(но её всё ещё многие используют - 1.6m downloads!), и они советуют использовать [connected-react-router](https://github.com/supasate/connected-react-router)
+
+**Заметка**: стор в ConnectedRouter передавать не обязательно по идее, как написано в доке "ConnectedRouter will use the store from Provider automatically", он автоматически получает доступ к стору через Provider, но также есть возможность напрямую передать стор как пропс `<ConnectedRouter history={history} store={store}>`, https://github.com/reactjs/react-router-redux/issues/609#issuecomment-339677259, дак вот в моём случае автоматически стор почему-то не подтягивался через Provider, поэтому я передал его как пропс, возможно из-за структуры проекта, возможно это нужно делать в одном компоненте, или возможно связанно с версиямии пакетов react, redux, react-router, react-router-redux, т.к. react-router-redux уже deprecated!
+
+```jsx
+ReactDOM.render(
+  <Provider store={store}>
+    // ConnectedRouter will use the store from Provider automatically
+    <ConnectedRouter history={history}>
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/topics" component={Topics} />
+      </div>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`

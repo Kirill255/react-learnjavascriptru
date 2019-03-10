@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, NavLink, Switch, Redirect } from "react-router-dom";
+import { ConnectedRouter } from "react-router-redux";
+import { Route, NavLink, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 import Articles from "../components/routes/Articles";
@@ -9,12 +10,17 @@ import NotFound from "../components/routes/NotFound";
 import UserForm from "../components/UserForm";
 import Filters from "../components/Filters";
 import Counter from "../components/Counter";
+
+import store from "../store";
+import history from "../history";
+
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      // store в ConnectedRouter передавать не обязательно по идее см. README.md
+      <ConnectedRouter history={history} store={store}>
         <div className="app">
           <div>
             <h2>Main menu</h2>
@@ -55,7 +61,7 @@ class App extends Component {
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }
