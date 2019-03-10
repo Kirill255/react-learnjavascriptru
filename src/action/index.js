@@ -1,3 +1,5 @@
+import { push, replace } from "react-router-redux";
+
 import {
   INCREMENT,
   DELETE_ARTICLE,
@@ -78,7 +80,13 @@ export const loadArticle = (id) => (dispatch) => {
 
   setTimeout(() => {
     fetch(`/api/article/${id}`)
-      .then((res) => res.json())
+      .then((res) => {
+        // теперь мы будем попадать в блок catch если придёт 4xx
+        if (res.status >= 400) {
+          throw new Error(res.statusText);
+        }
+        return res.json();
+      })
       .then((response) => {
         dispatch({
           type: LOAD_ARTICLE + SUCCESS,
@@ -90,6 +98,10 @@ export const loadArticle = (id) => (dispatch) => {
           type: LOAD_ARTICLE + FAIL,
           payload: { id, err }
         });
+        // в котором редиректимся на /error
+        // dispatch(push("/error"));
+        // или так, так даже лучше, т.к. мы перезаписываем роут приведший к ошибке
+        dispatch(replace("/error"));
       });
   }, 1000);
 };

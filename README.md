@@ -171,6 +171,8 @@ ReactDOM.render(
 
 4. В редьюсерах - уже есть все данные, нужно просто поменять состояния, в мидлаварах - сайд-эффекты, запросы на сервер, в экшенах - то, что вообще должно происходить, в селекторах - то, как мы что-то достаём из стора.
 
+5. Fetch API and 4xx+ error https://github.com/github/fetch/issues/155, https://github.com/whatwg/fetch/issues/18, по-умолчанию fetch не считает 4xx+ ошибками, он разрешается как fulfilled promise и не попадает в блок catch, в блок catch попадают только выброшенные исключения exceptions.
+
 ## ESLint
 
 1. `npm i -D eslint babel-eslint eslint-plugin-react`
