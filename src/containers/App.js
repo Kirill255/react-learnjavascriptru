@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 import Articles from "../components/routes/Articles";
+import NewArticle from "../components/routes/NewArticle";
+import NotFound from "../components/routes/NotFound";
 import UserForm from "../components/UserForm";
 import Filters from "../components/Filters";
 import Counter from "../components/Counter";
@@ -37,9 +39,14 @@ class App extends Component {
             </div>
           </div>
           <UserForm />
-          <Route path="/counter" component={Counter} />
-          <Route path="/filters" component={Filters} />
-          <Route path="/articles" component={Articles} />
+
+          <Switch>
+            <Route path="/counter" component={Counter} />
+            <Route path="/filters" component={Filters} />
+            <Route path="/articles/new" component={NewArticle} />
+            <Route path="/articles" component={Articles} />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </div>
       </Router>
     );
