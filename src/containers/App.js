@@ -51,8 +51,7 @@ class App extends Component {
             <Route path="/filters" component={Filters} />
             <Route path="/articles/new" component={NewArticle} />
             <Route path="/articles" component={Articles} />
-            <Route path="/comments/:page" component={CommentsPage} />
-            <Redirect from="/comments" to="/comments/1" />
+            <Route path="/comments" component={CommentsPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
