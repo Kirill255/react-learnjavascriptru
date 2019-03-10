@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader";
 
 import Articles from "../components/routes/Articles";
 import NewArticle from "../components/routes/NewArticle";
+import CommentsPage from "../components/routes/CommentsPage";
 import NotFound from "../components/routes/NotFound";
 import UserForm from "../components/UserForm";
 import Filters from "../components/Filters";
@@ -37,6 +38,11 @@ class App extends Component {
                 Articles
               </NavLink>
             </div>
+            <div>
+              <NavLink to="/comments/1" activeStyle={{ color: "red", fontWeight: "bold" }}>
+                CommentsPage
+              </NavLink>
+            </div>
           </div>
           <UserForm />
 
@@ -45,6 +51,7 @@ class App extends Component {
             <Route path="/filters" component={Filters} />
             <Route path="/articles/new" component={NewArticle} />
             <Route path="/articles" component={Articles} />
+            <Route path="/comments/:page" component={CommentsPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
