@@ -1,0 +1,35 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
+import ArticleList from "../ArticleList";
+import Article from "../Article/Article";
+
+export default class Articles extends Component {
+  static propTypes = {};
+
+  // https://reacttraining.com/react-router/web/api/match
+  // getArticle = (...args) => {
+  //   console.log("---", args);
+  //   return <h1>Article</h1>;
+  // };
+
+  // важно передать key, чтобы это считалось новым компонентом
+  getArticle = ({ match }) => {
+    const { id } = match.params;
+    return <Article id={id} isOpen key={id} />;
+  };
+
+  getIndex = () => {
+    return <h2>Please select article</h2>;
+  };
+
+  render() {
+    return (
+      <div>
+        <ArticleList />
+        <Route path="/articles" render={this.getIndex} exact />
+        <Route path="/articles/:id" render={this.getArticle} />
+      </div>
+    );
+  }
+}

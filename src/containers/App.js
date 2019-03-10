@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { HashRouter as Router, Route, NavLink } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
-import ArticleList from "../components/ArticleList";
+import Articles from "../components/routes/Articles";
 import UserForm from "../components/UserForm";
 import Filters from "../components/Filters";
 import Counter from "../components/Counter";
@@ -32,14 +32,14 @@ class App extends Component {
             </div>
             <div>
               <NavLink to="/articles" activeStyle={{ color: "red", fontWeight: "bold" }}>
-                ArticleList
+                Articles
               </NavLink>
             </div>
           </div>
           <UserForm />
           <Route path="/counter" component={Counter} />
           <Route path="/filters" component={Filters} />
-          <Route path="/articles" component={ArticleList} />
+          <Route path="/articles" component={Articles} />
         </div>
       </Router>
     );
