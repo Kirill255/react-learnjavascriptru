@@ -117,6 +117,20 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 
 [v2](https://github.com/reactjs/react-transition-group)
 
+## React-router
+
+1. Если используется BrowserRouter (а не HashRouter) и у нас dev-режим, тоесть мы разрабатываем локально с webpack'ом, то нужно просто добавить настройку в webpack:
+
+```js
+devServer: {
+  // ...
+  // https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
+  historyApiFallback: true;
+}
+```
+
+- а если это prod, то нужно позаботиться чтобы сервер отдавал на любой запрос index.html страницу, настройки зависят от сервера, смотря куда будете деплоить https://facebook.github.io/create-react-app/docs/deployment
+
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`
