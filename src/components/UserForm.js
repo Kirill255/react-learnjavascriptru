@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
 export default class UserForm extends Component {
-  state = {
-    username: ""
-  };
-
   handleUserChange = (event) => {
     if (event.target.value.length > 10) return;
-    this.setState({ username: event.target.value });
+    this.props.onChange(event.target.value);
   };
 
   render() {
@@ -15,9 +11,10 @@ export default class UserForm extends Component {
       <div>
         <label htmlFor="username">Name:</label>
         <input
+          autoComplete="off"
           id="username"
           type="text"
-          value={this.state.username}
+          value={this.props.username}
           onChange={this.handleUserChange}
         />
       </div>

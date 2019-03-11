@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-class Article extends PureComponent {
+class Article extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
@@ -59,6 +59,8 @@ class Article extends PureComponent {
   }
 
   render() {
+    console.log("rerender: 3 Article");
+
     const { article, isOpen, toggleOpen, handleDelete } = this.props;
     if (!article) return null;
 
@@ -77,5 +79,7 @@ export default connect(
   (state, ownProps) => ({
     article: state.articles.entities.get(ownProps.id)
   }),
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { pure: false }
 )(Article);

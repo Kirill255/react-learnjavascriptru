@@ -163,6 +163,23 @@ ReactDOM.render(
 
 **UPDATE:** решился баг после отката версии react-redux с 6.x.x на 5.x.x
 
+## react-redux
+
+При любом изменении в приложении запускается обновление дерева, например в нашем случае когда мы сделали setState в компоненте App в методе handleUserChange, тоесть когда мы вводим что-то в инпут, пошло обновление дерева сверху вниз, если в каком-то месте дерево не перестраивается, как в нашем случае мы пишем что-то в инпут, но имя в CommentList не меняется, значит в CommentList не пришёл сигнал. Как такое могло произойти? Что дерево начало перестроение нашего родителя, но кто-то из дочерних компонентов решил не перестраиваться? Это значит что где-то по дороге у нас попался shouldComponentUpdate(). Это единственная причина что дерево начало перестраиваться, а оно у нас начало перестраиваться как видно на gif, App->Articles-> и всё! В Article->CommentList уже не дошло! Это значит что где-то по дороге между App и CommentList есть shouldComponentUpdate(). Даже если мы явно не используем в этих компонентах или shouldComponentUpdate() или PureComponent, то есть ещё одно место, так называемый декоратор connect() из react-redux под капотом используем shouldComponentUpdate()! Как видим из gif сигнал теряется между Articles->Article, в Article уже не приходит, значит идём в Article и ищем в чём проблема, оказывается у нас там используется PureComponent, меняем его на Component а также есть connect(), у которого есть 4 параметра `function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)`, обычно используются только первые два, дак вот в 4ом параметре в [options](https://react-redux.js.org/api/connect#options-object) мы можем переопределить поведение для компонента, а именно отключить shouldComponentUpdate, передав `{pure: false}`, дальше идём в CommentList, там у нас тоже connect(), проделываем тоже самое, в итоге получится что-то вроде этого:
+
+```js
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { pure: false }
+)(Article);
+```
+
+Теперь сигнал должен проходить дальше, дерео будет перестраиваться.
+
+![react-redux](https://user-images.githubusercontent.com/24504648/54149154-9cc3fc00-4446-11e9-8426-ae9e3d602d7d.gif)
+
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`

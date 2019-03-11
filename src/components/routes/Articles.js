@@ -27,6 +27,8 @@ export default class Articles extends Component {
   };
 
   render() {
+    console.log("rerender: 2 Articles");
+
     return (
       <div>
         <ArticleList />

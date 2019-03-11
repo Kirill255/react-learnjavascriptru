@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { ConnectedRouter } from "react-router-redux";
 import { Route, NavLink, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
@@ -17,7 +18,30 @@ import history from "../history";
 import "./App.css";
 
 class App extends Component {
+  // описываем что хотим поместить в контекст
+  static childContextTypes = {
+    user: PropTypes.string
+  };
+
+  state = {
+    username: ""
+  };
+
+  // это специальный метод, который будет вызываться реактом, он поместит объект в контекст
+  getChildContext() {
+    return {
+      user: this.state.username
+      // любые другие свойства которые хотим поместить в контекст, конечно их тоже нужно будет описать выше
+    };
+  }
+
+  handleUserChange = (username) => {
+    this.setState({ username });
+  };
+
   render() {
+    console.log("rerender: 1 App");
+
     return (
       // store в ConnectedRouter передавать не обязательно по идее см. README.md
       // решился баг после отката версии react-redux с 6.x.x на 5.x.x
@@ -52,7 +76,7 @@ class App extends Component {
               </NavLink>
             </div>
           </div>
-          <UserForm />
+          <UserForm username={this.state.username} onChange={this.handleUserChange} />
 
           <Switch>
             <Route path="/counter" component={Counter} />

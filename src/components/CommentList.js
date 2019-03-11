@@ -10,8 +10,11 @@ import { loadArticleComments } from "../action";
 class CommentList extends Component {
   // описываем что хотим получить из контекста
   static contextTypes = {
+    // это было помещено в контекст автоматически библиотеками react-redux и react-roter-dom
     store: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    // это мы поместили в контекст сами
+    user: PropTypes.string
   };
 
   componentDidUpdate(prevProps) {
@@ -22,14 +25,17 @@ class CommentList extends Component {
   }
 
   render() {
+    console.log("rerender: 4 CommentList");
     // если мы не опишим контекст, то this.context будет пустым объектом
-    console.log("---", this.context);
+    // console.log("---", this.context);
 
     const { article, isOpen, toggleOpen } = this.props;
     const text = isOpen ? "hide comments" : "show comments";
 
     return (
       <div>
+        <h3>User: {this.context.user}</h3>
+
         <button onClick={toggleOpen}>{text}</button>
         {getBody({ isOpen, article })}
       </div>
@@ -75,5 +81,7 @@ function getBody({ isOpen, article: { id, comments = [], commentsLoaded, comment
 
 export default connect(
   null,
-  { loadArticleComments }
+  { loadArticleComments },
+  null,
+  { pure: false }
 )(toggleOpen(CommentList));

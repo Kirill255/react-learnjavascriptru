@@ -7,7 +7,7 @@ import logger from "../middlewares/logger";
 import randomId from "../middlewares/randomId";
 import api from "../middlewares/api";
 
-const enhancer = applyMiddleware(thunk, routerMiddleware(history), randomId, api, logger);
+const enhancer = applyMiddleware(thunk, routerMiddleware(history), randomId, api /* logger */);
 const store = createStore(reducer, {}, enhancer);
 
 // dev only, нужно не забыть это убрать на prod!!!
