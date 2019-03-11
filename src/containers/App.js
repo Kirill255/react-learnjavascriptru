@@ -20,7 +20,9 @@ class App extends Component {
   render() {
     return (
       // store в ConnectedRouter передавать не обязательно по идее см. README.md
-      <ConnectedRouter history={history} store={store}>
+      // решился баг после отката версии react-redux с 6.x.x на 5.x.x
+      // <ConnectedRouter history={history} store={store}>
+      <ConnectedRouter history={history}>
         <div className="app">
           <div>
             <h2>Main menu</h2>

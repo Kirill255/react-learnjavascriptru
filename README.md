@@ -161,6 +161,8 @@ ReactDOM.render(
 );
 ```
 
+**UPDATE:** решился баг после отката версии react-redux с 6.x.x на 5.x.x
+
 ## Other
 
 1. Create new/or copy from old project `.editorconfig` and `.gitignore`
@@ -172,6 +174,8 @@ ReactDOM.render(
 4. В редьюсерах - уже есть все данные, нужно просто поменять состояния, в мидлаварах - сайд-эффекты, запросы на сервер, в экшенах - то, что вообще должно происходить, в селекторах - то, как мы что-то достаём из стора.
 
 5. Fetch API and 4xx+ error https://github.com/github/fetch/issues/155, https://github.com/whatwg/fetch/issues/18, по-умолчанию fetch не считает 4xx+ ошибками, он разрешается как fulfilled promise и не попадает в блок catch, в блок catch попадают только выброшенные исключения exceptions.
+
+6. Context API, пришлось откатить версию react-redux с 6.x.x на 5.x.x, потому что context.store был undefined https://github.com/supasate/connected-react-router/issues/252#issuecomment-466020132, возможно потому что мы используем старый синтаксис контекста, а они в версии 6.x.x используют уже новый, кстати старый синтаксис Legacy Context, перестанет работать в 17+ react, поэтому советую использовать новый синтаксис, вместо того чтобы откатывать версии библиотек.
 
 ## ESLint
 

@@ -8,13 +8,12 @@ import toggleOpen from "../decorators/toggleOpen";
 import { loadArticleComments } from "../action";
 
 class CommentList extends Component {
-  // UNSAFE_componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
-  //   if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
-  //     loadArticleComments(article.id);
-  //   }
-  // }
+  // описываем что хотим получить из контекста
+  static contextTypes = {
+    store: PropTypes.object,
+    router: PropTypes.object
+  };
 
-  // UNSAFE_componentWillReceiveProps - legacy method
   componentDidUpdate(prevProps) {
     const { isOpen, article, loadArticleComments } = this.props;
     if (!prevProps.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
@@ -23,6 +22,9 @@ class CommentList extends Component {
   }
 
   render() {
+    // если мы не опишим контекст, то this.context будет пустым объектом
+    console.log("---", this.context);
+
     const { article, isOpen, toggleOpen } = this.props;
     const text = isOpen ? "hide comments" : "show comments";
 
