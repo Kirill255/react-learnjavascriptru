@@ -43,10 +43,13 @@ export default (articlesState = defaultArticlesState, action) => {
       return articlesState.set("loading", true);
 
     case LOAD_ALL_ARTICLES + SUCCESS:
-      return articlesState
-        .set("entities", arrToMap(response, ArticleRecord))
-        .set("loading", false)
-        .set("loaded", true);
+      return (
+        articlesState
+          // .set("entities", arrToMap(response, ArticleRecord)) // перезаписать всё, просто удалить старое и записать новое
+          .update("entities", (entities) => arrToMap(response, ArticleRecord).merge(entities)) // обновить записи
+          .set("loading", false)
+          .set("loaded", true)
+      );
 
     case LOAD_ARTICLE + START:
       return articlesState.setIn(["entities", payload.id, "loading"], true);
