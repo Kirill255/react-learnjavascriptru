@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import CommentList from "../CommentList";
 import Loader from "../Loader";
+import LocalizedText from "../LocalizedText";
 import { connect } from "react-redux";
 import { deleteArticle, loadArticle } from "../../action";
 import "./Article.css";
@@ -68,7 +69,9 @@ class Article extends Component {
       <div>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
-        <button onClick={() => handleDelete(article.id)}>delete</button>
+        <button onClick={() => handleDelete(article.id)}>
+          <LocalizedText>delete me</LocalizedText>
+        </button>
         <TransitionGroup>{this.getBody()}</TransitionGroup>
       </div>
     );

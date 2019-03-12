@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Comment from "./Comment";
 import Loader from "./Loader";
 import CommentForm from "./CommentForm/CommentForm";
+import LocalizedText from "./LocalizedText";
 import toggleOpen from "../decorators/toggleOpen";
 import { loadArticleComments } from "../action";
 
@@ -36,7 +37,9 @@ class CommentList extends Component {
       <div>
         <h3>User: {this.context.user}</h3>
 
-        <button onClick={toggleOpen}>{text}</button>
+        <button onClick={toggleOpen}>
+          <LocalizedText>{text}</LocalizedText>
+        </button>
         {getBody({ isOpen, article })}
       </div>
     );
@@ -59,7 +62,9 @@ function getBody({ isOpen, article: { id, comments = [], commentsLoaded, comment
   if (!comments.length) {
     return (
       <div>
-        <p>No comments yet</p>
+        <p>
+          <LocalizedText>No comments yet</LocalizedText>
+        </p>
         <CommentForm articleId={id} />
       </div>
     );
